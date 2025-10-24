@@ -1,6 +1,6 @@
 {
   "name": "@godprotocol/repositories",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Repository management module for the God Protocol network. Handles storage, sync, and access layers for Oracle nodes and clients.",
   "main": "index.js",
   "type": "module",

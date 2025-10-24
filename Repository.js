@@ -26,7 +26,7 @@ class Repository {
   };
 
   objectify = () => {
-    let obj = { type: this.type, ...this.stringify() };
+    let obj = { type: this.type, options: this.stringify() };
 
     return obj;
   };
