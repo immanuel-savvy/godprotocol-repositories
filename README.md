@@ -1,4 +1,4 @@
-# 🧩 @godprotocol/repositories
+# @godprotocol/repositories
 
 **A unified interface for managing local and remote repositories.**
 
@@ -6,18 +6,18 @@ This module provides a common abstraction for file operations across storage lay
 
 ---
 
-## 🚀 Features
+## Features
 
-- **📦 Unified Repository Interface**: Seamless read/write access to multiple repository types.
-- **⚙️ Extensible Architecture**: Define custom repository types using the base `Repository` class.
-- **🌍 Multi-Source Sync**: Integrates local and remote repositories under one logical layer.
-- **🔁 Dynamic Loader**: The `Repos` manager dynamically instantiates repositories from definitions.
-- **🔒 Optimized I/O Operations**: Supports safe read/write, conflict resolution, and async synchronization.
-- **🧩 Built for God Protocol**: Core dependency for Oracle and GDS decentralized systems.
+- **Unified Repository Interface**: Seamless read/write access to multiple repository types.
+- **Extensible Architecture**: Define custom repository types using the base `Repository` class.
+- **Multi-Source Sync**: Integrates local and remote repositories under one logical layer.
+- **Dynamic Loader**: The `Repos` manager dynamically instantiates repositories from definitions.
+- **Optimized I/O Operations**: Supports safe read/write, conflict resolution, and async synchronization.
+- **Built for God Protocol**: Core dependency for Oracle and GDS decentralized systems.
 
 ---
 
-## 📦 Installation
+## Installation
 
 Install the module using npm:
 
@@ -27,7 +27,7 @@ npm install @godprotocol/repositories
 
 ---
 
-## 🧠 Quick Start
+## Quick Start
 
 Set up and use a repository with the following example:
 
@@ -60,7 +60,7 @@ await repo.sync();
 
 ---
 
-## ⚙️ Core API Reference
+## Core API Reference
 
 ### Class: `Repository`
 
@@ -92,7 +92,7 @@ const repo = await repos.cloth_repo({
 
 ---
 
-## 🧱 Example Repository Type: GitHub
+## Example Repository Type: GitHub
 
 Implements file operations over the GitHub REST API using `fetch`.
 
@@ -126,7 +126,7 @@ class Github extends Repository {
 
 ---
 
-## 🧩 Supported Repository Types
+## Supported Repository Types
 
 | Type     | Description                    | Example Configuration                                  |
 | -------- | ------------------------------ | ------------------------------------------------------ |
@@ -137,7 +137,7 @@ To add a custom repository type, extend the `Repository` class and implement the
 
 ---
 
-## ⚙️ Integration with God Protocol
+## Integration with God Protocol
 
 This package is natively integrated into the God Protocol ecosystem:
 
@@ -149,7 +149,7 @@ This package is natively integrated into the God Protocol ecosystem:
 
 ---
 
-## 📘 Extending the System
+## Extending the System
 
 Create a custom repository driver by extending the `Repository` class:
 
@@ -181,6 +181,6 @@ const myRepo = await repos.cloth_repo({ type: "custom", options: { ... } });
 
 ---
 
-## 📜 License
+## License
 
 MIT © [Savvy](https://github.com/immanuel-savvy)
