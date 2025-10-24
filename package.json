@@ -1,0 +1,33 @@
+{
+  "name": "@godprotocol/repositories",
+  "version": "1.0.2",
+  "description": "Repository management module for the God Protocol network. Handles storage, sync, and access layers for Oracle nodes and clients.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"No test suite defined\" && exit 0"
+  },
+  "keywords": [
+    "godprotocol",
+    "repositories",
+    "decentralized",
+    "oracle",
+    "storage",
+    "sync",
+    "distributed-systems"
+  ],
+  "author": "Savvy",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/immanuel-savvy/repositories"
+  },
+  "bugs": {
+    "url": "https://github.com/immanuel-savvy/repositories/issues"
+  },
+  "homepage": "https://github.com/immanuel-savvy/repositories#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
