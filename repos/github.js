@@ -22,77 +22,37 @@ class Github extends Repository {
     const url = `${this.base_url}/repos/${this.owner}/${this.repo}/contents/${file_path}`;
     const headers = this.get_headers();
 
-    const bodyBase = {
-      content: Buffer.from(content).toString("base64"),
-    };
-
     try {
-      let sha = null;
-      let exists = false;
+      // 1️⃣ Always check for SHA first
+      const sha = await this._get_sha(file_path);
 
-      // ✅ If user explicitly wants to fetch SHA first
-      if (options.retrieve_sha) {
-        const shaData = await this._get_sha(file_path);
-        if (shaData) {
-          sha = shaData;
-          exists = true;
-        }
-      }
-
-      // ✅ Try direct write (optimistic)
+      // 2️⃣ Prepare request body
       const body = {
-        message: exists ? "Update file" : "Create file",
-        ...bodyBase,
+        message: sha ? "Update file" : "Create file",
+        content: Buffer.from(content).toString("base64"),
+        branch: this.branch, // always target correct branch
         ...(sha && { sha }),
       };
 
-      let res = await fetch(url, {
+      // 3️⃣ Perform write
+      const res = await fetch(url, {
         method: "PUT",
         headers,
         body: JSON.stringify(body),
       });
 
-      // ⚠️ If it failed because the file already exists (409 or similar)
+      const data = await res.json();
+
       if (!res.ok) {
-        const errText = await res.text();
-        if (
-          res.status === 409 ||
-          errText.includes("sha") ||
-          errText.includes("exists")
-        ) {
-          // Retrieve sha, retry
-          const newSha = await this._get_sha(file_path);
-          if (!newSha)
-            throw new Error("Failed to retrieve SHA after conflict.");
-
-          const retryBody = {
-            message: "Update file after conflict",
-            ...bodyBase,
-            sha: newSha,
-          };
-
-          const retryRes = await fetch(url, {
-            method: "PUT",
-            headers,
-            body: JSON.stringify(retryBody),
-          });
-
-          const retryJson = await retryRes.json();
-          return {
-            success: retryRes.ok,
-            sha: newSha,
-            response: retryJson,
-          };
-        } else {
-          throw new Error(`Write failed: ${errText}`);
-        }
+        throw new Error(
+          `Write failed [${res.status}]: ${data.message || "Unknown error"}`
+        );
       }
 
-      const data = await res.json();
-      const writtenSha = data?.content?.sha || sha || null;
+      // 4️⃣ Return clean response
       return {
         success: true,
-        sha: writtenSha,
+        sha: data?.content?.sha || sha || null,
         response: data,
       };
     } catch (e) {
@@ -101,10 +61,9 @@ class Github extends Repository {
     }
   };
 
-  // 🔹 helper to get SHA only
   _get_sha = async (file_path) => {
     try {
-      const url = `${this.base_url}/repos/${this.owner}/${this.repo}/contents/${file_path}`;
+      const url = `${this.base_url}/repos/${this.owner}/${this.repo}/contents/${file_path}?ref=${this.branch}`;
       const res = await fetch(url, { headers: this.get_headers() });
       if (!res.ok) return null;
       const data = await res.json();

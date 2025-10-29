@@ -1,6 +1,6 @@
 {
   "name": "@godprotocol/repositories",
-  "version": "1.0.8",
+  "version": "1.1.11",
   "description": "Repository management module for the God Protocol network. Handles storage, sync, and access layers for Oracle nodes and clients.",
   "main": "index.js",
   "type": "module",
@@ -30,5 +30,8 @@
   "homepage": "https://github.com/immanuel-savvy/repositories#readme",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
   }
 }
