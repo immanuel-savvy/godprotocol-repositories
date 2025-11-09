@@ -50,7 +50,7 @@ class Remote extends Repository {
       method: "read",
       body: { path },
     });
-    return { ok: true, content };
+    return { ok: !!content, content };
   };
 
   repo_id = () => {

@@ -27,8 +27,11 @@ function decrypt(encData, secret) {
   return decrypted;
 }
 
-const hash = (data) => {
-  return data || crypto.createHash("sha256").update(data).digest("hex");
+const hash = (data, alg = "sha1") => {
+  return crypto
+    .createHash(alg || "sha256")
+    .update(data)
+    .digest("hex");
 };
 
 class Cryptography {

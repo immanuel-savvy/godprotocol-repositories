@@ -36,7 +36,7 @@ class Repository extends Cryptography {
   };
 
   objectify = () => {
-    let obj = { type: this.type, options: this.stringify() };
+    let obj = { type: this.type, ...this.stringify() };
 
     return obj;
   };
